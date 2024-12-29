@@ -26,7 +26,7 @@ public partial class Node2d : Node2D
 		_minEdit.Text = minDefault.ToString();
 
 		_maxEdit = GetNode<TextEdit>("maxEdit");
-		_minEdit.Text = maxDefault.ToString();
+		_maxEdit.Text = maxDefault.ToString();
 
 		_minUpButton = GetNode<Button>("minUpButton");
 		_minUpButton.Connect("pressed", Callable.From(() => MinDelta(1)));
