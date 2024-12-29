@@ -5,13 +5,15 @@
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_kxy60")
 
-[node name="titleLabel" type="Label" parent="."]
-offset_left = 105.0
-offset_top = 34.0
-offset_right = 175.0
-offset_bottom = 57.0
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_right = 792.0
+offset_bottom = 42.0
+
+[node name="titleLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
 text = "RNG App"
 horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
 
 [node name="generateButton" type="Button" parent="."]
 offset_left = 104.0

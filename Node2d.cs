@@ -44,6 +44,7 @@ public partial class Node2d : Node2D
 
 		_generateButton = GetNode<Button>("generateButton");
 		_generateButton.Connect("pressed", Callable.From(() => OnGenerateRandomClick()));
+		_generateButton.GrabFocus();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
