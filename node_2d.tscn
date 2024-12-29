@@ -18,6 +18,7 @@ offset_left = 104.0
 offset_top = 122.0
 offset_right = 184.0
 offset_bottom = 153.0
+focus_neighbor_bottom = NodePath("../minEdit")
 text = "Generate"
 
 [node name="resultLabel" type="Label" parent="."]
@@ -61,6 +62,9 @@ offset_left = 98.0
 offset_top = 207.0
 offset_right = 144.0
 offset_bottom = 255.0
+focus_neighbor_top = NodePath("../generateButton")
+focus_neighbor_right = NodePath("../minUpButton")
+focus_neighbor_bottom = NodePath("../maxEdit")
 
 [node name="maxUpButton" type="Button" parent="."]
 offset_left = 310.0
