@@ -57,12 +57,23 @@ public partial class Node2d : Node2D
 		var updatedValue = Constrain(GetMinValue() + difference, minConstraint, maxConstraint);
 
 		_minEdit.Text = updatedValue.ToString();
+
+
+		if(GetMaxValue() < updatedValue)
+		{
+			_maxEdit.Text = updatedValue.ToString();
+		}
 	}
 
 	private void MaxDelta(int difference)
 	{
 		var updatedValue = Constrain(GetMaxValue() + difference, minConstraint, maxConstraint);
 		_maxEdit.Text = updatedValue.ToString();
+
+		if(GetMinValue() > updatedValue)
+		{
+			_minEdit.Text = updatedValue.ToString();
+		}
 	}
 
 	private static int Constrain(int source, int min, int max) =>
