@@ -5,8 +5,8 @@ public partial class Node2d : Node2D
 {
 	private readonly Random _random = new Random();
 
-	private TextEdit _minEdit;
-	private TextEdit _maxEdit;
+	private Label _minEdit;
+	private Label _maxEdit;
 	private Button _minUpButton;
 	private Button _minDownButton;
 	private Button _maxUpButton;
@@ -22,10 +22,10 @@ public partial class Node2d : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_minEdit = GetNode<TextEdit>("minEdit");
+		_minEdit = GetNode<Label>("minEdit");
 		_minEdit.Text = minDefault.ToString();
 
-		_maxEdit = GetNode<TextEdit>("maxEdit");
+		_maxEdit = GetNode<Label>("maxEdit");
 		_maxEdit.Text = maxDefault.ToString();
 
 		_minUpButton = GetNode<Button>("minUpButton");
