@@ -51,11 +51,8 @@ public partial class Node2d : Node2D
 		_generateButton.GrabFocus();
 
 		_debugLabel = GetNode<Label>("debugLabel");
-
-		// GetNode<Button>("generateButton").Pressed += OnGenerateRandomClick;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
@@ -63,9 +60,7 @@ public partial class Node2d : Node2D
 	private void MinDelta(int difference)
 	{
 		var updatedValue = Constrain(GetMinValue() + difference, minConstraint, maxConstraint);
-
 		_minEdit.Text = updatedValue.ToString();
-
 
 		if(GetMaxValue() < updatedValue)
 		{
@@ -89,30 +84,18 @@ public partial class Node2d : Node2D
 		: source > max ? max
 		: source;
 
-	private int GetMinValue()
+	private int GetMinValue() => 
+		int.TryParse(_minEdit.Text, out var value) && value >= minConstraint 
+			? value 
+			: minConstraint;
+
+	private int GetMaxValue() => 
+		int.TryParse(_maxEdit.Text, out var value) && value >= 0 
+			? value 
+			: 0;
+
+	private int GetRandom()
 	{
-		if (!int.TryParse(_minEdit.Text, out var parsedValue))
-			return minConstraint;
-
-		if (parsedValue < minConstraint)
-			return minConstraint;
-
-		return parsedValue;
-	}
-
-	private int GetMaxValue()
-	{
-		if (!int.TryParse(_maxEdit.Text, out var parsedValue))
-			return 0;
-
-		if (parsedValue < 0)
-			return 0;
-
-		return parsedValue;
-	}
-
-	private int GetRandom(){
-
 		var minValue = GetMinValue();
 		var range = GetMaxValue() - minValue + 1;
 
