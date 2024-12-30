@@ -13,11 +13,15 @@ public partial class Node2d : Node2D
 	private Button _maxDownButton;
 	private Button _generateButton;
 	private Label _resultLabel;
+	private Label _debugLabel;
 
 	private const int minConstraint = 0;
 	private const int maxConstraint = 100;
 	private const int minDefault = 1;
 	private const int maxDefault = 10;
+
+	private bool _leftTriggerActive = false;
+	private bool _rightTriggerActive = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -45,6 +49,10 @@ public partial class Node2d : Node2D
 		_generateButton = GetNode<Button>("generateButton");
 		_generateButton.Connect("pressed", Callable.From(() => OnGenerateRandomClick()));
 		_generateButton.GrabFocus();
+
+		_debugLabel = GetNode<Label>("debugLabel");
+
+		// GetNode<Button>("generateButton").Pressed += OnGenerateRandomClick;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -122,5 +130,61 @@ public partial class Node2d : Node2D
 	{
 		var randomValue = GetRandom();
 		_resultLabel.Text = randomValue.ToString();
+	}
+
+	public override void _Input(InputEvent ev)
+	{
+		if (ev is InputEventJoypadButton joypadButton && joypadButton.Pressed)
+		{
+			// Update debug label for buttons
+			_debugLabel.Text = $"Button: {joypadButton.ButtonIndex}";
+			GD.Print($"Pressed button: {joypadButton.ButtonIndex}");
+
+			switch (joypadButton.ButtonIndex)
+			{
+				case JoyButton.A:
+					OnGenerateRandomClick();
+					break;
+				case JoyButton.LeftShoulder:  // L1
+					MinDelta(1);
+					break;
+				case JoyButton.RightShoulder: // R1
+					MaxDelta(1);
+					break;
+			}
+
+			return;
+		}
+		
+		if (ev is InputEventJoypadMotion joypadMotion)
+		{
+			// Triggers are usually axes 2 (L2) and 5 (R2)
+			if (joypadMotion.Axis == JoyAxis.TriggerLeft)
+			{
+				if (joypadMotion.AxisValue > 0.5f && !_leftTriggerActive)
+				{
+					_leftTriggerActive = true;
+					MinDelta(-1);
+					_debugLabel.Text = $"L2 Trigger: {joypadMotion.AxisValue:F2}";
+				}
+				else if (joypadMotion.AxisValue <= 0.5f)
+				{
+					_leftTriggerActive = false;
+				}
+			}
+			else if (joypadMotion.Axis == JoyAxis.TriggerRight)
+			{
+				if (joypadMotion.AxisValue > 0.5f && !_rightTriggerActive)
+				{
+					_rightTriggerActive = true;
+					MaxDelta(-1);
+					_debugLabel.Text = $"R2 Trigger: {joypadMotion.AxisValue:F2}";
+				}
+				else if (joypadMotion.AxisValue <= 0.5f)
+				{
+					_rightTriggerActive = false;
+				}
+			}
+		}
 	}
 }

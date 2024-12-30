@@ -31,7 +31,7 @@ offset_top = 226.0
 offset_right = 685.0
 offset_bottom = 257.0
 focus_neighbor_bottom = NodePath("../minEdit")
-text = "Generate"
+text = "Generate  [A]"
 
 [node name="minLabel" type="Label" parent="."]
 offset_left = 396.0
@@ -50,18 +50,18 @@ theme_override_font_sizes/font_size = 20
 text = "Max"
 
 [node name="minUpButton" type="Button" parent="."]
-offset_left = 450.0
+offset_left = 440.0
 offset_top = 134.0
-offset_right = 480.0
+offset_right = 490.0
 offset_bottom = 165.0
-text = "▲"
+text = "▲ [LB]"
 
 [node name="minDownButton" type="Button" parent="."]
-offset_left = 450.0
+offset_left = 440.0
 offset_top = 169.0
-offset_right = 480.0
+offset_right = 490.0
 offset_bottom = 200.0
-text = "▼"
+text = "▼ [LT]"
 
 [node name="minEdit" type="Label" parent="."]
 offset_left = 392.0
@@ -73,18 +73,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="maxUpButton" type="Button" parent="."]
-offset_left = 766.0
+offset_left = 756.0
 offset_top = 137.0
-offset_right = 796.0
+offset_right = 806.0
 offset_bottom = 168.0
-text = "▲"
+text = "▲ [RB]"
 
 [node name="maxDownButton" type="Button" parent="."]
-offset_left = 766.0
+offset_left = 756.0
 offset_top = 172.0
-offset_right = 796.0
+offset_right = 806.0
 offset_bottom = 203.0
-text = "▼"
+text = "▼ [RT]"
 
 [node name="maxEdit" type="Label" parent="."]
 offset_left = 708.0
@@ -94,3 +94,11 @@ offset_bottom = 200.0
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="debugLabel" type="Label" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 16
+text = "Button: None"
