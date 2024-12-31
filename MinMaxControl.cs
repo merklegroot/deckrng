@@ -99,6 +99,12 @@ public partial class MinMaxControl : Control
     {
         _valueLabel.Text = Value.ToString();
         _headerLabel.Text = IsMax ? "Max" : "Min";
+
+        if (IsMax)
+        {
+            _upButton.Text = _upButton.Text.Replace("L", "R");
+            _downButton.Text = _downButton.Text.Replace("L", "R");
+        }
     }
 
     public override void _Input(InputEvent ev)

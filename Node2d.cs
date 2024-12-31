@@ -5,47 +5,20 @@ public partial class Node2d : Node2D
 {
 	private readonly Random _random = new Random();
 
-	private Label _minEdit;
-	private Label _maxEdit;
-	private Button _minUpButton;
-	private Button _minDownButton;
-	private Button _maxUpButton;
-	private Button _maxDownButton;
 	private Button _generateButton;
 	private Label _resultLabel;
 	private Label _debugLabel;
+
+	private MinMaxControl _minControl;
+	private MinMaxControl _maxControl;
 
 	private const int minConstraint = 0;
 	private const int maxConstraint = 100;
 	private const int minDefault = 1;
 	private const int maxDefault = 10;
 
-	private bool _isLeftTriggerActive = false;
-	private bool _isRightTriggerActive = false;
-
-	private MinMaxControl _minMax;
-
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_minEdit = GetNode<Label>("minEdit");
-		_minEdit.Text = minDefault.ToString();
-
-		_maxEdit = GetNode<Label>("maxEdit");
-		_maxEdit.Text = maxDefault.ToString();
-
-		_minUpButton = GetNode<Button>("minUpButton");
-		_minUpButton.Connect("pressed", Callable.From(() => MinDelta(1)));
-
-		_minDownButton = GetNode<Button>("minDownButton");
-		_minDownButton.Connect("pressed", Callable.From(() => MinDelta(-1)));
-
-		_maxUpButton = GetNode<Button>("maxUpButton");
-		_maxUpButton.Connect("pressed", Callable.From(() => MaxDelta(1)));
-
-		_maxDownButton = GetNode<Button>("maxDownButton");
-		_maxDownButton.Connect("pressed", Callable.From(() => MaxDelta(-1)));
-
 		_resultLabel = GetNode<Label>("resultLabel");
 
 		_generateButton = GetNode<Button>("generateButton");
@@ -54,8 +27,13 @@ public partial class Node2d : Node2D
 
 		_debugLabel = GetNode<Label>("debugLabel");
 
-		_minMax = GetNode<MinMaxControl>("minMax");
-		_minMax.ValueChanged += OnMinMaxValueChanged;
+		_minControl = GetNode<MinMaxControl>("minControl");
+		_minControl.ValueChanged += MinDelta;
+		_minControl.Value = minDefault;
+
+		_maxControl = GetNode<MinMaxControl>("maxControl");
+		_maxControl.ValueChanged += MaxDelta;
+		_maxControl.Value = maxDefault;
 	}
 
 	public override void _Process(double delta)
@@ -64,25 +42,21 @@ public partial class Node2d : Node2D
 
 	private void MinDelta(int difference)
 	{
-		var updatedValue = Constrain(GetMinValue() + difference, minConstraint, maxConstraint);
-		_minEdit.Text = updatedValue.ToString();
-		_minMax.Value = updatedValue;
+		var updatedValue = Constrain(_minControl.Value + difference, minConstraint, maxConstraint);
+		_minControl.Value = updatedValue;
 
-		if(GetMaxValue() < updatedValue)
-		{
-			_maxEdit.Text = updatedValue.ToString();
-		}
+		if (_maxControl.Value < updatedValue)
+			_maxControl.Value = updatedValue;
 	}
 
 	private void MaxDelta(int difference)
 	{
-		var updatedValue = Constrain(GetMaxValue() + difference, minConstraint, maxConstraint);
-		_maxEdit.Text = updatedValue.ToString();
+		var updatedValue = Constrain(_maxControl.Value + difference, minConstraint, maxConstraint);
+		if (updatedValue != _maxControl.Value)
+			_maxControl.Value = updatedValue;
 
-		if(GetMinValue() > updatedValue)
-		{
-			_minEdit.Text = updatedValue.ToString();
-		}
+		if (_minControl.Value > updatedValue)
+			_minControl.Value = updatedValue;
 	}
 
 	private static int Constrain(int source, int min, int max) =>
@@ -90,27 +64,16 @@ public partial class Node2d : Node2D
 		: source > max ? max
 		: source;
 
-	private int GetMinValue() => 
-		int.TryParse(_minEdit.Text, out var value) && value >= minConstraint 
-			? value 
-			: minConstraint;
-
-	private int GetMaxValue() => 
-		int.TryParse(_maxEdit.Text, out var value) && value >= 0 
-			? value 
-			: 0;
-
 	private int GetRandom()
 	{
-		var minValue = GetMinValue();
-		var range = GetMaxValue() - minValue + 1;
+		var range = _maxControl.Value - _minControl.Value + 1;
 
 		if (range < 0)
 		{
-			return minValue;
+			return _minControl.Value;
 		}
 
-		var randomValue = (_random.Next() % range) + minValue;
+		var randomValue = (_random.Next() % range) + _minControl.Value;
 
 		return randomValue;
 	}
@@ -121,103 +84,15 @@ public partial class Node2d : Node2D
 		_resultLabel.Text = randomValue.ToString();
 	}
 
-	public override void _Input(InputEvent ev)
-	{
-		if (ev is InputEventJoypadButton joypadButton && joypadButton.Pressed)
-		{
-			HandleJoypadButton(joypadButton);
-			return;
-		}
-		
-		if (ev is InputEventJoypadMotion joypadMotion)
-		{
-			HandleJoypadTriggers(joypadMotion);
-		}
-	}
-
-	private void HandleJoypadButton(InputEventJoypadButton joypadButton)
-	{
-		_debugLabel.Text = $"Button: {joypadButton.ButtonIndex}";
-		GD.Print($"Pressed button: {joypadButton.ButtonIndex}");
-
-		if (joypadButton.ButtonIndex == JoyButton.A)
-		{
-			OnGenerateRandomClick();
-			return;
-		}
-
-		if (joypadButton.ButtonIndex == JoyButton.LeftShoulder)
-		{
-			MinDelta(1);
-			return;
-		}
-
-		if (joypadButton.ButtonIndex == JoyButton.RightShoulder)
-		{
-			MaxDelta(1);
-			return;
-		}
-	}
-
-	private void HandleJoypadTriggers(InputEventJoypadMotion joypadMotion)
-	{
-		if (joypadMotion.Axis == JoyAxis.TriggerLeft)
-		{
-			HandleLeftTrigger(joypadMotion.AxisValue);
-			return;
-		}
-
-		if (joypadMotion.Axis == JoyAxis.TriggerRight)
-		{
-			HandleRightTrigger(joypadMotion.AxisValue);
-		}
-	}
-
-	private void HandleLeftTrigger(float axisValue)
-	{
-		if (axisValue > 0.5f && !_isLeftTriggerActive)
-		{
-			_isLeftTriggerActive = true;
-			MinDelta(-1);
-			_debugLabel.Text = $"L2 Trigger: {axisValue:F2}";
-			return;
-		}
-
-		if (axisValue <= 0.5f)
-		{
-			_isLeftTriggerActive = false;
-		}
-	}
-
-	private void HandleRightTrigger(float axisValue)
-	{
-		if (axisValue > 0.5f && !_isRightTriggerActive)
-		{
-			_isRightTriggerActive = true;
-			MaxDelta(-1);
-			_debugLabel.Text = $"R2 Trigger: {axisValue:F2}";
-			return;
-		}
-
-		if (axisValue <= 0.5f)
-		{
-			_isRightTriggerActive = false;
-		}
-	}
-
-	private void OnMinMaxValueChanged(int delta)
-	{
-		GD.Print("hello");
-		MinDelta(delta);
-	}
 
 	public override void _ExitTree()
 	{
-		if (_minMax != null)
-		{
-			_minMax.ValueChanged -= OnMinMaxValueChanged;
-		}
-		
+		if (_minControl != null)
+			_minControl.ValueChanged -= MinDelta;
+
+		if (_maxControl != null)
+			_maxControl.ValueChanged -= MaxDelta;
+
 		base._ExitTree();
 	}
 }
