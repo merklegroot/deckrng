@@ -142,18 +142,18 @@ public partial class MinMaxControl : Control
 	{
 		if (joypadMotion.Axis == JoyAxis.TriggerLeft)
 		{
-			MinDelta(-1);
+			HandleLeftTrigger(joypadMotion.AxisValue);
 			return;
 		}
 
 		if (joypadMotion.Axis == JoyAxis.TriggerRight)
 		{
-			MaxDelta(-1);
+			HandleRightTrigger(joypadMotion.AxisValue);
 		}
 	}
 
-    private const float _triggerDeactivationLevel = 0.2f;
-    private const float _triggerActivationLevel = 0.7f;
+    private const float _triggerDeactivationLevel = 0.05f;
+    private const float _triggerActivationLevel = 0.10f;
 
 	private void HandleLeftTrigger(float axisValue)
 	{
@@ -172,7 +172,7 @@ public partial class MinMaxControl : Control
             return;
 
         _wasLeftTriggerActive = true;
-        MinDelta(1);
+        MinDelta(-1);
 	}
 
 	private void HandleRightTrigger(float axisValue)
@@ -192,6 +192,6 @@ public partial class MinMaxControl : Control
             return;
 
         _wasRightTriggerActive = true;
-        MaxDelta(1);
+        MaxDelta(-1);
 	}
 } 
