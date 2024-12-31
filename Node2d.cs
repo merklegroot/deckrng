@@ -17,6 +17,8 @@ public partial class Node2d : Node2D
 	private const int minDefault = 1;
 	private const int maxDefault = 10;
 
+	private Button _closeButton;
+
 	public override void _Ready()
 	{
 		_resultLabel = GetNode<Label>("resultLabel");
@@ -37,6 +39,9 @@ public partial class Node2d : Node2D
 
 		var buildLabel = GetNode<Label>("buildLabel");
 		buildLabel.Text = $"Build: {BuildInfo.BuildTime}";
+
+		_closeButton = GetNode<Button>("closeButton");
+		_closeButton.Pressed += OnCloseButtonPressed;
 	}
 
 	public override void _Process(double delta)
@@ -87,6 +92,28 @@ public partial class Node2d : Node2D
 		_resultLabel.Text = randomValue.ToString();
 	}
 
+	private void OnCloseButtonPressed()
+	{
+		GetTree().Quit();
+	}
+
+	public override void _Input(InputEvent ev)
+	{
+		if (ev is not InputEventJoypadButton joypadButton || !joypadButton.Pressed)
+			return;
+
+		if (joypadButton.ButtonIndex == JoyButton.A)
+		{
+			OnGenerateRandomClick();
+			return;
+		}
+
+		if (joypadButton.ButtonIndex == JoyButton.B)
+		{
+			OnCloseButtonPressed();
+			return;
+		}
+	}
 
 	public override void _ExitTree()
 	{
@@ -95,6 +122,11 @@ public partial class Node2d : Node2D
 
 		if (_maxControl != null)
 			_maxControl.ValueChanged -= MaxDelta;
+
+		if (_closeButton != null)
+		{
+			_closeButton.Pressed -= OnCloseButtonPressed;
+		}
 
 		base._ExitTree();
 	}
