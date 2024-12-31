@@ -5,11 +5,11 @@ public partial class MinMaxControl : Control
 	[Signal]
 	public delegate void ValueChangedEventHandler(int delta);
 
-	private bool _isLeftTriggerActive = false;
-	private bool _isRightTriggerActive = false;
+	private bool _wasLeftTriggerActive = false;
+	private bool _wasRightTriggerActive = false;
 
     private bool _isMax = false;
-
+    
     [Export]
     public bool IsMax
     {
@@ -125,14 +125,14 @@ public partial class MinMaxControl : Control
 	{
 		if (joypadButton.ButtonIndex == JoyButton.LeftShoulder)
 		{
-            MinDelta(-1);
+            MinDelta(1);
             
 			return;
 		}
 
 		if (joypadButton.ButtonIndex == JoyButton.RightShoulder)
 		{
-            MaxDelta(-1);
+            MaxDelta(1);
 
 			return;
 		}
@@ -152,33 +152,46 @@ public partial class MinMaxControl : Control
 		}
 	}
 
+    private const float _triggerDeactivationLevel = 0.2f;
+    private const float _triggerActivationLevel = 0.7f;
+
 	private void HandleLeftTrigger(float axisValue)
 	{
-		if (axisValue > 0.5f && !_isLeftTriggerActive)
-		{
-			_isLeftTriggerActive = true;
-            MinDelta(1);
-			return;
-		}
+        var isHighEnoughToActivate = axisValue >= _triggerActivationLevel;
+        var isLowEnoughToDeactivate = axisValue <= _triggerDeactivationLevel;
 
-		if (axisValue <= 0.5f)
-		{
-			_isLeftTriggerActive = false;
-		}
+        if (_wasLeftTriggerActive) {
+            if (isLowEnoughToDeactivate) {
+                _wasLeftTriggerActive = false;
+            }
+
+            return;
+        }
+
+        if (!isHighEnoughToActivate)
+            return;
+
+        _wasLeftTriggerActive = true;
+        MinDelta(1);
 	}
 
 	private void HandleRightTrigger(float axisValue)
 	{
-		if (axisValue > 0.5f && !_isRightTriggerActive)
-		{
-			_isRightTriggerActive = true;
-			MaxDelta(1);
-			return;
-		}
+        var isHighEnoughToActivate = axisValue >= _triggerActivationLevel;
+        var isLowEnoughToDeactivate = axisValue <= _triggerDeactivationLevel;
 
-		if (axisValue <= 0.5f)
-		{
-			_isRightTriggerActive = false;
-		}
+        if (_wasRightTriggerActive) {
+            if (isLowEnoughToDeactivate) {
+                _wasRightTriggerActive = false;
+            }
+
+            return;
+        }
+
+        if (!isHighEnoughToActivate)
+            return;
+
+        _wasRightTriggerActive = true;
+        MaxDelta(1);
 	}
 } 

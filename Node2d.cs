@@ -34,6 +34,9 @@ public partial class Node2d : Node2D
 		_maxControl = GetNode<MinMaxControl>("maxControl");
 		_maxControl.ValueChanged += MaxDelta;
 		_maxControl.Value = maxDefault;
+
+		var buildLabel = GetNode<Label>("buildLabel");
+		buildLabel.Text = $"Build: {BuildInfo.BuildTime}";
 	}
 
 	public override void _Process(double delta)
