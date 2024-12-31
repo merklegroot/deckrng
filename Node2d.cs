@@ -23,6 +23,8 @@ public partial class Node2d : Node2D
 	private bool _isLeftTriggerActive = false;
 	private bool _isRightTriggerActive = false;
 
+	private MinMaxControl _minMax;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -51,6 +53,9 @@ public partial class Node2d : Node2D
 		_generateButton.GrabFocus();
 
 		_debugLabel = GetNode<Label>("debugLabel");
+
+		_minMax = GetNode<MinMaxControl>("minMax");
+		_minMax.ValueChanged += OnMinMaxValueChanged;
 	}
 
 	public override void _Process(double delta)
@@ -61,6 +66,7 @@ public partial class Node2d : Node2D
 	{
 		var updatedValue = Constrain(GetMinValue() + difference, minConstraint, maxConstraint);
 		_minEdit.Text = updatedValue.ToString();
+		_minMax.Value = updatedValue;
 
 		if(GetMaxValue() < updatedValue)
 		{
@@ -197,5 +203,21 @@ public partial class Node2d : Node2D
 		{
 			_isRightTriggerActive = false;
 		}
+	}
+
+	private void OnMinMaxValueChanged(int delta)
+	{
+		GD.Print("hello");
+		MinDelta(delta);
+	}
+
+	public override void _ExitTree()
+	{
+		if (_minMax != null)
+		{
+			_minMax.ValueChanged -= OnMinMaxValueChanged;
+		}
+		
+		base._ExitTree();
 	}
 }
