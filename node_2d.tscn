@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5f1httvxxa03"]
+[gd_scene load_steps=5 format=3 uid="uid://c5f1httvxxa03"]
 
 [ext_resource type="Script" path="res://Node2d.cs" id="1_kxy60"]
 [ext_resource type="PackedScene" path="res://min_max_control.tscn" id="2_dy0h5"]
 [ext_resource type="Texture2D" uid="uid://poaovfu3n5rj" path="res://addons/controller_icons/assets/steamdeck/a.png" id="steamdeck_a"]
+[ext_resource type="Texture2D" uid="uid://cbrsrgvgujiul" path="res://addons/controller_icons/assets/steamdeck/b.png" id="steamdeck_b"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_kxy60")
@@ -92,4 +93,7 @@ offset_top = 598.0
 offset_right = 1142.0
 offset_bottom = 638.0
 theme_override_font_sizes/font_size = 16
-text = "Close [B]"
+text = "Close"
+icon = ExtResource("steamdeck_b")
+icon_alignment = 2
+expand_icon = true
