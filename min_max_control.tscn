@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://new_uid_here"]
+[gd_scene load_steps=4 format=3 uid="uid://frwgilt60dp5"]
 
 [ext_resource type="Script" path="res://MinMaxControl.cs" id="1_min_max_control"]
+[ext_resource type="Texture2D" uid="uid://dichmao6k03i6" path="res://addons/controller_icons/assets/steamdeck/l1.png" id="steamdeck_l1"]
+[ext_resource type="Texture2D" uid="uid://bd1ipt1urb7xw" path="res://addons/controller_icons/assets/steamdeck/l2.png" id="steamdeck_l2"]
 
 [node name="MinMaxControl" type="Control"]
 layout_mode = 3
@@ -9,8 +11,6 @@ script = ExtResource("1_min_max_control")
 
 [node name="headerLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 40.0
 offset_bottom = 28.0
 theme_override_font_sizes/font_size = 20
@@ -22,7 +22,10 @@ offset_left = 44.0
 offset_top = 15.0
 offset_right = 94.0
 offset_bottom = 46.0
-text = "▲ [LB]"
+text = "▲"
+icon = ExtResource("steamdeck_l1")
+icon_alignment = 2
+expand_icon = true
 
 [node name="downButton" type="Button" parent="."]
 layout_mode = 0
@@ -30,7 +33,10 @@ offset_left = 44.0
 offset_top = 50.0
 offset_right = 94.0
 offset_bottom = 81.0
-text = "▼ [LT]"
+text = "▼"
+icon = ExtResource("steamdeck_l2")
+icon_alignment = 2
+expand_icon = true
 
 [node name="valueLabel" type="Label" parent="."]
 layout_mode = 0
@@ -40,4 +46,4 @@ offset_right = 42.0
 offset_bottom = 78.0
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
-vertical_alignment = 1 
+vertical_alignment = 1
