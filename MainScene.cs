@@ -18,7 +18,7 @@ public partial class MainScene : Node2D
 
 	private Button _closeButton;
 
-	private AnimatedSprite2D _fireSprite;
+	private PackedScene _fireAnimationScene;
 
 	public override void _Ready()
 	{
@@ -42,8 +42,7 @@ public partial class MainScene : Node2D
 		_closeButton = GetNode<Button>("closeButton");
 		_closeButton.Pressed += OnCloseButtonPressed;
 
-		_fireSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		_fireSprite.Stop(); // Start paused
+		_fireAnimationScene = GD.Load<PackedScene>("res://fire_animation.tscn");
 	}
 
 	public override void _Process(double delta)
@@ -93,13 +92,24 @@ public partial class MainScene : Node2D
 		var randomValue = GetRandom();
 		_resultLabel.Text = randomValue.ToString();
 		
-		_fireSprite.Play();
-	}
+		var fireSprite = _fireAnimationScene.Instantiate<AnimatedSprite2D>();
+		AddChild(fireSprite);
+		
+		var randomOffset = new Vector2(
+			_random.Next(-50, 50),
+			_random.Next(-50, 50)
+		);
 
-	private void OnFireAnimationFinished()
-	{
-		_fireSprite.Stop();
-		_fireSprite.AnimationFinished -= OnFireAnimationFinished;
+		fireSprite.Position = new Vector2(588, 178) + randomOffset;
+		
+		fireSprite.SpeedScale = 6.0f;
+		
+		fireSprite.AnimationFinished += () => 
+		{
+			fireSprite.QueueFree();
+		};
+		
+		fireSprite.Play();
 	}
 
 	private void OnCloseButtonPressed()

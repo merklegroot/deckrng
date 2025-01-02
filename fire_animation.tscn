@@ -1,0 +1,127 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Texture2D" uid="uid://cnetdctl5b38n" path="res://Compressed/256/Fire_1_256-comp_sheet.png" id="1_fire"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwpu5"]
+atlas = ExtResource("1_fire")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko74p"]
+atlas = ExtResource("1_fire")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8813g"]
+atlas = ExtResource("1_fire")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_degan"]
+atlas = ExtResource("1_fire")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx2wx"]
+atlas = ExtResource("1_fire")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpn1f"]
+atlas = ExtResource("1_fire")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2v1o"]
+atlas = ExtResource("1_fire")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1k40v"]
+atlas = ExtResource("1_fire")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgdlp"]
+atlas = ExtResource("1_fire")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndtiv"]
+atlas = ExtResource("1_fire")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8deh"]
+atlas = ExtResource("1_fire")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipxts"]
+atlas = ExtResource("1_fire")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpxtp"]
+atlas = ExtResource("1_fire")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jh5k"]
+atlas = ExtResource("1_fire")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f54ia"]
+atlas = ExtResource("1_fire")
+region = Rect2(512, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_runlt"]
+atlas = ExtResource("1_fire")
+region = Rect2(768, 768, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u7l8i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwpu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko74p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8813g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_degan")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fx2wx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpn1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2v1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1k40v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgdlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndtiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8deh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipxts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpxtp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jh5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f54ia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_runlt")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FireAnimation" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_u7l8i")
+speed_scale = 6.0 
