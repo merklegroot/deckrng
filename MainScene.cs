@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Node2d : Node2D
+public partial class MainScene : Node2D
 {
 	private readonly Random _random = new Random();
 
