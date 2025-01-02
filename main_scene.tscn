@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5f1httvxxa03"]
 
 [ext_resource type="Script" path="res://MainScene.cs" id="1_kxy60"]
-[ext_resource type="PackedScene" uid="uid://frwgilt60dp5" path="res://min_max_control.tscn" id="2_dy0h5"]
+[ext_resource type="PackedScene" uid="uid://frwgilt60dp5" path="res://Controls/MinMax/min_max_control.tscn" id="2_dy0h5"]
 [ext_resource type="Texture2D" uid="uid://poaovfu3n5rj" path="res://addons/controller_icons/assets/steamdeck/a.png" id="steamdeck_a"]
 [ext_resource type="Texture2D" uid="uid://cbrsrgvgujiul" path="res://addons/controller_icons/assets/steamdeck/b.png" id="steamdeck_b"]
 
@@ -69,7 +69,6 @@ offset_left = 710.0
 offset_top = 120.0
 offset_right = 810.0
 offset_bottom = 200.0
-IsMax = true
 
 [node name="buildLabel" type="Label" parent="."]
 offset_left = 10.0
