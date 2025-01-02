@@ -97,3 +97,5 @@ text = "Close"
 icon = ExtResource("steamdeck_b")
 icon_alignment = 2
 expand_icon = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

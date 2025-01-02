@@ -33,7 +33,6 @@ public partial class MinMaxControl : Control
             {
                 _value = value;
                 UpdateDisplay();
-                // EmitSignal(SignalName.ValueChanged, _value);
             }
         }
     }
@@ -44,6 +43,11 @@ public partial class MinMaxControl : Control
     private Button _upButton;
     private Button _downButton;
 
+    private Texture2D _steamDeckL1;
+    private Texture2D _steamDeckL2;
+    private Texture2D _steamDeckR1;
+    private Texture2D _steamDeckR2;
+
     public override void _Ready()
     {
         _upButton = GetNode<Button>("upButton");
@@ -51,6 +55,12 @@ public partial class MinMaxControl : Control
 
         _downButton = GetNode<Button>("downButton");
         _downButton.Pressed += OnDown;
+
+        // Load textures
+        _steamDeckL1 = GD.Load<Texture2D>("res://addons/controller_icons/assets/steamdeck/l1.png");
+        _steamDeckL2 = GD.Load<Texture2D>("res://addons/controller_icons/assets/steamdeck/l2.png");
+        _steamDeckR1 = GD.Load<Texture2D>("res://addons/controller_icons/assets/steamdeck/r1.png");
+        _steamDeckR2 = GD.Load<Texture2D>("res://addons/controller_icons/assets/steamdeck/r2.png");
 
         UpdateDisplay();
     }
@@ -97,14 +107,17 @@ public partial class MinMaxControl : Control
 
     private void UpdateDisplay()
     {
-        _valueLabel.Text = Value.ToString();
-        _headerLabel.Text = IsMax ? "Max" : "Min";
+        if (_valueLabel != null)
+            _valueLabel.Text = Value.ToString();
 
-        if (IsMax)
-        {
-            _upButton.Text = _upButton.Text.Replace("L", "R");
-            _downButton.Text = _downButton.Text.Replace("L", "R");
-        }
+        if(_headerLabel != null)
+            _headerLabel.Text = IsMax ? "Max" : "Min";
+
+        if (_upButton != null)
+            _upButton.Icon = IsMax ? _steamDeckR1 : _steamDeckL1;
+
+        if (_downButton != null)
+            _downButton.Icon = IsMax ? _steamDeckR2 : _steamDeckL2;
     }
 
     public override void _Input(InputEvent ev)
