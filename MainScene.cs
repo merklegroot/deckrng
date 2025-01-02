@@ -7,7 +7,6 @@ public partial class MainScene : Node2D
 
 	private Button _generateButton;
 	private Label _resultLabel;
-	private Label _debugLabel;
 
 	private MinMaxControl _minControl;
 	private MinMaxControl _maxControl;
@@ -26,8 +25,6 @@ public partial class MainScene : Node2D
 		_generateButton = GetNode<Button>("generateButton");
 		_generateButton.Connect("pressed", Callable.From(() => OnGenerateRandomClick()));
 		_generateButton.GrabFocus();
-
-		_debugLabel = GetNode<Label>("debugLabel");
 
 		_minControl = GetNode<MinMaxControl>("minControl");
 		_minControl.ValueChanged += MinDelta;
