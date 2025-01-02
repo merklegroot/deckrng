@@ -142,15 +142,13 @@ public partial class MinMaxControl : Control
 	{
 		if (joypadButton.ButtonIndex == JoyButton.LeftShoulder)
 		{
-            MinDelta(1);
-            
+            MinDelta(1);            
 			return;
 		}
 
 		if (joypadButton.ButtonIndex == JoyButton.RightShoulder)
 		{
             MaxDelta(1);
-
 			return;
 		}
 	}

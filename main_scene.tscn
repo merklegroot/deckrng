@@ -150,12 +150,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="generateButton" type="Button" parent="."]
-offset_left = 485.0
-offset_top = 226.0
-offset_right = 685.0
-offset_bottom = 272.0
+offset_left = 465.0
+offset_top = 350.0
+offset_right = 705.0
+offset_bottom = 387.0
 focus_neighbor_bottom = NodePath("../minEdit")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Generate"
 icon = ExtResource("steamdeck_a")
 icon_alignment = 2
@@ -180,16 +180,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="minControl" parent="." instance=ExtResource("2_dy0h5")]
-offset_left = 345.0
+offset_left = 315.0
 offset_top = 120.0
-offset_right = 445.0
+offset_right = 415.0
 offset_bottom = 200.0
 
 [node name="maxControl" parent="." instance=ExtResource("2_dy0h5")]
-offset_left = 710.0
+offset_left = 740.0
 offset_top = 120.0
-offset_right = 810.0
+offset_right = 840.0
 offset_bottom = 200.0
+IsMax = true
 
 [node name="buildLabel" type="Label" parent="."]
 offset_left = 10.0
