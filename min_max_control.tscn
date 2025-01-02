@@ -14,22 +14,26 @@ offset_bottom = 28.0
 theme_override_font_sizes/font_size = 20
 text = "MinMax"
 
-[node name="upButton" type="Button" parent="."]
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 44.0
 offset_top = 15.0
 offset_right = 144.0
-offset_bottom = 56.0
+offset_bottom = 101.0
+theme_override_constants/separation = 4
+
+[node name="upButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 text = "▲"
+icon_alignment = 2
 expand_icon = true
 
-[node name="downButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 44.0
-offset_top = 60.0
-offset_right = 144.0
-offset_bottom = 101.0
+[node name="downButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 text = "▼"
+icon_alignment = 2
 expand_icon = true
 
 [node name="valueLabel" type="Label" parent="."]

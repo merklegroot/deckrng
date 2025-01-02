@@ -50,10 +50,10 @@ public partial class MinMaxControl : Control
 
     public override void _Ready()
     {
-        _upButton = GetNode<Button>("upButton");
+        _upButton = GetNode<Button>("ButtonContainer/upButton");
         _upButton.Pressed += OnUp;
 
-        _downButton = GetNode<Button>("downButton");
+        _downButton = GetNode<Button>("ButtonContainer/downButton");
         _downButton.Pressed += OnDown;
 
         // Load textures
