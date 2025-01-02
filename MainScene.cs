@@ -18,6 +18,8 @@ public partial class MainScene : Node2D
 
 	private Button _closeButton;
 
+	private AnimatedSprite2D _fireSprite;
+
 	public override void _Ready()
 	{
 		_resultLabel = GetNode<Label>("resultLabel");
@@ -39,6 +41,9 @@ public partial class MainScene : Node2D
 
 		_closeButton = GetNode<Button>("closeButton");
 		_closeButton.Pressed += OnCloseButtonPressed;
+
+		_fireSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		_fireSprite.Stop(); // Start paused
 	}
 
 	public override void _Process(double delta)
@@ -87,6 +92,14 @@ public partial class MainScene : Node2D
 	{
 		var randomValue = GetRandom();
 		_resultLabel.Text = randomValue.ToString();
+		
+		_fireSprite.Play();
+	}
+
+	private void OnFireAnimationFinished()
+	{
+		_fireSprite.Stop();
+		_fireSprite.AnimationFinished -= OnFireAnimationFinished;
 	}
 
 	private void OnCloseButtonPressed()

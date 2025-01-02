@@ -110,14 +110,18 @@ public partial class MinMaxControl : Control
         if (_valueLabel != null)
             _valueLabel.Text = Value.ToString();
 
-        if(_headerLabel != null)
+        if (_headerLabel != null)
             _headerLabel.Text = IsMax ? "Max" : "Min";
-
+        
         if (_upButton != null)
+        {
             _upButton.Icon = IsMax ? _steamDeckR1 : _steamDeckL1;
+        }
 
         if (_downButton != null)
+        {
             _downButton.Icon = IsMax ? _steamDeckR2 : _steamDeckL2;
+        }
     }
 
     public override void _Input(InputEvent ev)
