@@ -89,27 +89,31 @@ public partial class MainScene : Node2D
 
 	private void OnGenerateRandomClick()
 	{
+		const int totalExplosions = 10;
+
 		var randomValue = GetRandom();
 		_resultLabel.Text = randomValue.ToString();
 		
-		var fireSprite = _fireAnimationScene.Instantiate<AnimatedSprite2D>();
-		AddChild(fireSprite);
-		
-		var randomOffset = new Vector2(
-			_random.Next(-50, 50),
-			_random.Next(-50, 50)
-		);
-
-		fireSprite.Position = new Vector2(588, 178) + randomOffset;
-		
-		fireSprite.SpeedScale = 6.0f;
-		
-		fireSprite.AnimationFinished += () => 
+		for (int i = 0; i < totalExplosions; i++)
 		{
-			fireSprite.QueueFree();
-		};
-		
-		fireSprite.Play();
+			var fireSprite = _fireAnimationScene.Instantiate<AnimatedSprite2D>();
+			AddChild(fireSprite);
+			
+			var randomOffset = new Vector2(
+				_random.Next(-50, 50),
+				_random.Next(-50, 50)
+			);
+
+			fireSprite.Position = new Vector2(588, 178) + randomOffset;
+			fireSprite.SpeedScale = 6.0f;
+			
+			fireSprite.AnimationFinished += () => 
+			{
+				fireSprite.QueueFree();
+			};
+			
+			fireSprite.Play();
+		}
 	}
 
 	private void OnCloseButtonPressed()
